@@ -60,6 +60,30 @@ func createEmailDetail(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func searchEmailData(w http.ResponseWriter, r *http.Request) {
+
+	defer r.Body.Close()
+
+	if r.Method != "POST" {
+		respondWithError(w, http.StatusBadRequest, "Invalid method")
+		return
+	}
+
+	var cl model.EmailSearch
+
+	if err := json.NewDecoder(r.Body).Decode(&cl); err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid request")
+		return
+	}
+
+	fmt.Println(cl)
+	if searchdocs, err := con.SearchData(cl); err != nil {
+		respondWithError(w, http.StatusBadRequest, fmt.Sprintf("%v", err))
+	} else {
+		respondWithJson(w, http.StatusAccepted, searchdocs)
+	}
+}
+
 func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	w.Header().Set("Content-Type", "application/json")
@@ -70,8 +94,10 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 func respondWithError(w http.ResponseWriter, code int, msg string) {
 	respondWithJson(w, code, map[string]string{"error": msg})
 }
+
 func main() {
 	http.HandleFunc("/add-emailRecord/", createEmailDetail)
+	http.HandleFunc("/search-emailRecord/", searchEmailData)
 	fmt.Println("Excecuted Main Method")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
