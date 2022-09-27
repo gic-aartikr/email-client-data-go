@@ -1,13 +1,19 @@
 package main
 
 import (
-	"emaildata/model"
+	"emaildata/modelData"
 	"emaildata/service"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 )
+
+const maxUploadSize = 10 * 1024 * 1024 // 10 mb
+const uploadPath = "./demo"
+const downloadFileFromPath = "demo/"
+const destination = "test/download/"
 
 var con = service.Email{}
 
@@ -23,14 +29,14 @@ func init() {
 func createEmailDetail(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
-	fmt.Println("method:", r.Method)
+
 	if r.Method != "POST" {
 
 		respondWithError(w, http.StatusBadRequest, "Invalid Method")
 		return
 	}
 
-	var emailData model.Email
+	var emailData modelData.EmailModel
 	fmt.Println("body:", r.Body)
 	if err := json.NewDecoder(r.Body).Decode(&emailData); err != nil {
 		respondWithError(w, http.StatusBadRequest, fmt.Sprintf("%v", err))
@@ -39,15 +45,11 @@ func createEmailDetail(w http.ResponseWriter, r *http.Request) {
 
 	ema := emailData.EmailTo
 
-	fmt.Println("ema:", ema)
-	fmt.Println("email:", emailData.EmailBody)
-	fmt.Println("emaildata:", emailData)
-
 	if len(ema) == 0 || emailData.EmailBody == "" {
 		respondWithError(w, http.StatusBadRequest, "Please enter emailTo and emailBody")
 		return
 	}
-	if emailData.Subject == "" {
+	if emailData.EmailSubject == "" {
 		respondWithError(w, http.StatusBadRequest, "Please enter subject")
 		return
 	}
@@ -58,6 +60,7 @@ func createEmailDetail(w http.ResponseWriter, r *http.Request) {
 			"message": emailsend,
 		})
 	}
+
 }
 
 func searchEmailData(w http.ResponseWriter, r *http.Request) {
@@ -69,7 +72,7 @@ func searchEmailData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var cl model.EmailSearch
+	var cl modelData.EmailSearch
 
 	if err := json.NewDecoder(r.Body).Decode(&cl); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request")
@@ -81,6 +84,25 @@ func searchEmailData(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, http.StatusBadRequest, fmt.Sprintf("%v", err))
 	} else {
 		respondWithJson(w, http.StatusAccepted, searchdocs)
+	}
+}
+
+func writeToPDF(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	if r.Method != "GET" {
+		respondWithError(w, http.StatusBadRequest, "Method not allowed")
+	}
+
+	id := strings.Split(r.URL.Path, "/")[2]
+	fmt.Println("ID:", id)
+	if err := con.WriteEmailDataInPDF(id); err != nil {
+
+		respondWithError(w, http.StatusBadRequest, err.Error())
+	} else {
+		respondWithJson(w, http.StatusAccepted, map[string]string{
+			"message": "write pdf data successfully",
+		})
 	}
 }
 
@@ -98,6 +120,8 @@ func respondWithError(w http.ResponseWriter, code int, msg string) {
 func main() {
 	http.HandleFunc("/add-emailRecord/", createEmailDetail)
 	http.HandleFunc("/search-emailRecord/", searchEmailData)
+	http.HandleFunc("/write-to-pdf/", writeToPDF)
+
 	fmt.Println("Excecuted Main Method")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

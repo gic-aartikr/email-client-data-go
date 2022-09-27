@@ -1,0 +1,103 @@
+[
+  {
+    "requestJson": {
+      "data": [
+        {
+          "taskBy": "BO",
+          "taskId": "032a5b86-a667-11eb-bcbc-0242ac130002",
+          "taskName": "verifyChecks",
+          "taskSpecs": {
+            "fileUpload": {
+              "directory": null,
+              "verificationReplyDocument": [
+                
+              ]
+            },
+            "fullfillment": {
+              "remarks": null,
+              "changeCaseStatus": "Completed",
+              "insufficiencyStatus": "",
+              "mandatoryDocumentsRemarks": ""
+            },
+            "questionaire": [
+              
+            ],
+            "caseReference": {
+              "crnNo": "R276-8272038-WEST-2022",
+              "sbuId": "1",
+              "caseNo": "1657025217528",
+              "checkId": "194648705",
+              "sbuName": "RPA Testing",
+              "caseType": "MDE",
+              "caseUUID": "96271",
+              "clientId": "1",
+              "ngStatus": "",
+              "packageId": "1",
+              "packageName": "Address 14-Jan-19 SRTB443RPA",
+              "productName": "Permanent address - Physical Verification",
+              "componentName": "Address",
+              "crnCreatedDate": "2022-07-05",
+              "ngStatusDescription": "Missing Information - Requested"
+            },
+            "documentUpload": {
+              "filePath": "",
+              
+            },
+            "missingFields": [
+              
+            ],
+            "checkVerification": {
+              "cost": "",
+              "action": "checkLevelMIRelease",
+              "country": "India",
+              "emailId": "",
+              "attempts": "",
+              "keyWords": "",
+              "miRemarks": null,
+              "subAction": "databasemi",
+              "actionCode": "",
+              "resultCode": "",
+              "disposition": "",
+              "productName": "Permanent address - Physical Verification",
+              "verifiedDate": "",
+              "verifierName": "",
+              "componentName": "Address",
+              "internalNotes": "",
+              "departmentName": "",
+              "generalRemarks": "",
+              "reportComments": null,
+              "verifierNumber": "",
+              "modeOfVerification": "",
+              "expectedClosureDate": "",
+              "verifierDesignation": "",
+              "followUpDateAndTimes": "",
+              "approveOrRejectComment": null,
+              "executiveSummaryComments": null,
+              "dateVerificationCompleted": "",
+              "endStatusOfTheVerification": "Additional Information Required",
+              "isThisAVerificationAttempt": "No"
+            }
+          },
+          "taskSerialNo": 1.0
+        }
+      ],
+      "metadata": {
+        "task": "verifyChecks",
+        "attempt": 1.0,
+        "stageId": "42411d3d-8c18-4627-bd38-d73404f7ca27",
+        "txLabel": "1657025217528",
+        "version": "2.1.0",
+        "multiTask": "no",
+        "processId": "d271e3d6-4d25-4bc2-83b0-af81e2862829",
+        "requestId": "94456c4c-94e0-4b21-8bc1-0354ce38eaac",
+        "stageName": "Doc Stage",
+        "processName": "CSPi NG India",
+        "requestDate": 1657705786022,
+        "requestType": "query",
+        "taskGroupId": "032a5b86-a667-11eb-bcbc-0242ac130002",
+        "requestAuthToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJtdGVpZFwiOlwiOGI3NGQ0NGMtMDU5MC00MDdjLThiZDgtNjFkM2FkN2Y2ZjM5XCIsXCJ1c2VySWRcIjpcImIxMTA1NDhkLWFmNzgtNGUyNC04ZDZiLWNlN2IyZTE4YWI2OFwiLFwiYX  BwU2Vzc2lvbklkXCI6XCIyMjk3ZTJiYS1hM2UwLTQyZmItOTg0Yy0zYWU2ODE3ZGZmMDdcIixcInByb2plY3RJZFwiOlwicHJvamVjdElkXCIsXCJwcm9qZWN0VmVyc2lvbklkXCI6XCJwcm9qZWN0VmVyc2lvbklkXCIsXCJVU0VSX0  5BTUVcIjpcInN1cGVyIGFkbWluXCIsXCJBRERUSU9OQUxfSU5GT1wiOlwiXCIsXCJleHRlcm5hbFRva2VuXCI6XCJudWxsXCJ9IiwiZXhwIjozMjUzMDk0NTA5fQ.6RF11Vfeg-  bdNbLY4Mp59TJPTwmgkXbnr6oyrDXn1lZTHSCnil3rPfn2uqXlja1Vg6FuJSFV_HHnCuZg2AvDAw"
+      }
+    },
+    "requestProcessorId": 1095869
+  }
+]
